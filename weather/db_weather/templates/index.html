@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% include 'add-record.html '%}
+
+     {% for row in weather_list %}
+         <p> Город: <strong> {{row.name_city}} </strong> </p>
+         <p> Дата прогноза: <strong> {{row.forecast_date.strftime('%d.%m.%Y')}} </strong> </p>
+         <p> Средняя температура: <strong> {{row.avg_temp}} </strong> </p>
+         <p> Среднее давление: <strong> {{row.avg_pressure}} </strong> </p>
+         <p> Среднее количество осадков: <strong> {{row.avg_rainfall}} </strong> </p>
+        <a href = "{{url_for ('record_detail', w_id=row.id)}}"> Подробнее </a>
+        <form action="/delete_record" method="post">
+            <input type="hidden" name="id" value="{{ row.id }}">
+            <input type="submit" value="Удалить">
+        </form>
+        <p> ________________ </p>
+     {% endfor %}
+
+{% endblock %}
